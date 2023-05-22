@@ -1,0 +1,71 @@
+PowerShell 7.3.4
+PS C:\Users\482\AppData\Roaming\MobaXterm\home> cd ~
+PS C:\Users\482> cd .\Desktop\JavaTechSpecWeb\JavaCore\HomeWorkSem\
+PS C:\Users\482\Desktop\JavaTechSpecWeb\JavaCore\HomeWorkSem> docker buildx build -f ./output.Dockerfile --output type=local,dest=./src/main/java/ru/gb/homewo
+rk/sem1 .
+[+] Building 1.9s (11/11) FINISHED
+ => [internal] load .dockerignore                                                                                                                        0.0s
+ => => transferring context: 2B                                                                                                                          0.0s
+ => [internal] load build definition from output.Dockerfile                                                                                              0.0s
+ => => transferring dockerfile: 312B                                                                                                                     0.0s
+ => [internal] load metadata for docker.io/bellsoft/liberica-openjdk-alpine:11.0.16.1-1                                                                  0.9s
+ => [internal] load build context                                                                                                                        0.0s
+ => => transferring context: 1.21kB                                                                                                                      0.0s
+ => [buildproject 1/5] FROM docker.io/bellsoft/liberica-openjdk-alpine:11.0.16.1-1@sha256:050e6e620309772b4e886de339caf782f2e15dace820f4406749160410b7e  0.0s
+ => CACHED [buildproject 2/5] WORKDIR /app                                                                                                               0.0s
+ => CACHED [buildproject 3/5] COPY ./src/main/java ./src                                                                                                 0.0s
+ => CACHED [buildproject 4/5] RUN mkdir ./out                                                                                                            0.0s
+ => [buildproject 5/5] RUN javac -sourcepath ./src -d out ./src/ru/gb/homework/sem1/Main.java                                                            0.9s
+ => [outputfile 1/1] COPY --from=BuildProject /app/out /out                                                                                              0.0s
+ => exporting to client                                                                                                                                  0.0s
+ => => copying files 12.60kB                                                                                                                             0.0s
+PS C:\Users\482\Desktop\JavaTechSpecWeb\JavaCore\HomeWorkSem> docker buildx build -f ./outputdocs.Dockerfile --output type=local,dest=./src/main/java/ru/gb/ho
+mework/sem1 .
+[+] Building 1.4s (12/12) FINISHED
+ => [internal] load .dockerignore                                                                                                                        0.0s
+ => => transferring context: 2B                                                                                                                          0.0s
+ => [internal] load build definition from outputdocs.Dockerfile                                                                                          0.0s
+ => => transferring dockerfile: 378B                                                                                                                     0.0s
+ => [internal] load metadata for docker.io/bellsoft/liberica-openjdk-alpine:11.0.16.1-1                                                                  1.3s
+ => [internal] load build context                                                                                                                        0.0s
+ => => transferring context: 2.82kB                                                                                                                      0.0s
+ => [buildproject 1/6] FROM docker.io/bellsoft/liberica-openjdk-alpine:11.0.16.1-1@sha256:050e6e620309772b4e886de339caf782f2e15dace820f4406749160410b7e  0.0s
+ => CACHED [buildproject 2/6] WORKDIR /app                                                                                                               0.0s
+ => CACHED [buildproject 3/6] COPY ./src/main/java ./src                                                                                                 0.0s
+ => CACHED [buildproject 4/6] COPY ./src/main/java/ru/gb/homework/sem1/out ./out                                                                         0.0s
+ => CACHED [buildproject 5/6] RUN mkdir ./docs                                                                                                           0.0s
+ => CACHED [buildproject 6/6] RUN javadoc -encoding utf-8 -d docs -sourcepath ./src -cp out -subpackages ru                                              0.0s
+ => CACHED [outputfile 1/1] COPY --from=BuildProject /app/docs /docs                                                                                     0.0s
+ => exporting to client                                                                                                                                  0.1s
+ => => copying files 1.54MB                                                                                                                              0.1s
+PS C:\Users\482\Desktop\JavaTechSpecWeb\JavaCore\HomeWorkSem> docker build -f ./buildandrun.Dockerfile -t javarun:latest .
+[+] Building 2.1s (10/10) FINISHED
+ => [internal] load build definition from buildandrun.Dockerfile                                                                                         0.0s
+ => => transferring dockerfile: 277B                                                                                                                     0.0s
+ => [internal] load .dockerignore                                                                                                                        0.0s
+ => => transferring context: 2B                                                                                                                          0.0s
+ => [internal] load metadata for docker.io/bellsoft/liberica-openjdk-alpine:11.0.16.1-1                                                                  2.1s
+ => [auth] bellsoft/liberica-openjdk-alpine:pull token for registry-1.docker.io                                                                          0.0s
+ => [internal] load build context                                                                                                                        0.0s
+ => => transferring context: 10.01kB                                                                                                                     0.0s
+ => [1/4] FROM docker.io/bellsoft/liberica-openjdk-alpine:11.0.16.1-1@sha256:050e6e620309772b4e886de339caf782f2e15dace820f4406749160410b7e290            0.0s
+ => CACHED [2/4] COPY ./src/main/java ./src                                                                                                              0.0s
+ => CACHED [3/4] RUN mkdir ./out                                                                                                                         0.0s
+ => CACHED [4/4] RUN javac -sourcepath ./src -d out ./src/ru/gb/homework/sem1/Main.java                                                                  0.0s
+ => exporting to image                                                                                                                                   0.0s
+ => => exporting layers                                                                                                                                  0.0s
+ => => writing image sha256:dcadb90b9bd29d3bba9271c080ef35332d6ac047e2ac4d71c2800e45aea59a65                                                             0.0s
+ => => naming to docker.io/library/javarun:latest                                                                                                        0.0s
+PS C:\Users\482\Desktop\JavaTechSpecWeb\JavaCore\HomeWorkSem> docker run --rm javarun:latest
+Машина бизнес класса: Модель: Мерседес, Кузов: Седан, Цвет: Black, Тип: Бизнес, Класс: A, Мощность двигателя: 100 л/с, Комплектация: Базовая.
+Машина бизнес класса: Модель: Мерседес, Кузов: Седан, Цвет: Black, Тип: Бизнес, Класс: A, Мощность двигателя: 100 л/с, Комплектация: Базовая. Модификация: Мощ
+ность двигателя увеличена до 200 л/с.
+
+Спорткар: Модель: Porsche, Кузов: Спорткар, Цвет: Yellow, Тип: Спорткар, Максимальная скорость: 320км/ч, Мощность двигателя: 400 л/с, Комплектация: Базовая.
+Спорткар: Модель: Porsche, Кузов: Спорткар, Цвет: Yellow, Тип: Спорткар, Максимальная скорость: 320км/ч, Мощность двигателя: 400 л/с, Комплектация: Базовая. М
+одификация: Комплектация Установлен расширяющий обвес.
+
+Внедорожник: Модель: Jeep, Кузов: Хэчбэк, Цвет: Red, Тип: Внедорожник, Высота колеса: 650 мм., Мощность двигателя: 100 л/с, Комплектация: Базовая.
+Внедорожник: Модель: Jeep, Кузов: Хэчбэк, Цвет: Red, Тип: Внедорожник, Высота колеса: 650 мм., Мощность двигателя: 100 л/с, Комплектация: Базовая. Модификация
+: Мощность двигателя увеличена до 260 л/с, Комплектация Установлены шины для бездорожья, установлена жесткая подвеска, увеличен дорожный просвет.
+PS C:\Users\482\Desktop\JavaTechSpecWeb\JavaCore\HomeWorkSem>
