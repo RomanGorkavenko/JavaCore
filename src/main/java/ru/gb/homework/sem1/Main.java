@@ -8,7 +8,16 @@ import ru.gb.homework.sem1.model.impl.BusinessClass;
 import ru.gb.homework.sem1.model.impl.Jeep;
 import ru.gb.homework.sem1.model.impl.Sport;
 
+/**
+ * Основной класс приложения.
+ * Здесь мы сможем описать его основное назначение и способы взаимодействия с ним.
+ */
 public class Main {
+
+    /**
+     * Точка входа в программу. С нее всегда начинается.
+     * @param args - массив строк.
+     */
     public static void main(String[] args) {
 
         Car businessCar = new BusinessClass("Мерседес", "Седан",
