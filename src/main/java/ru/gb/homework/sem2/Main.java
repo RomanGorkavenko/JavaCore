@@ -22,7 +22,30 @@ public class Main {
     private static int numberOfRowsYField;
 
     public static void main(String[] args) {
-
+        initialize();
+        printField();
+        while (true) {
+            if (humanTurn()) {
+                System.out.println("Победил игрок");
+                printField();
+                break;
+            }
+            printField();
+            if (checkDraw()) {
+                System.out.println("Ничья!");
+                break;
+            }
+            if (aiTurn()) {
+                System.out.println("Победил компьютер");
+                printField();
+                break;
+            }
+            printField();
+            if (checkDraw()) {
+                System.out.println("Ничья!");
+                break;
+            }
+        }
     }
 
     private static void initialize() {
