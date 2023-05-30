@@ -82,6 +82,121 @@ public class Main {
         return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
     }
 
+    static boolean checkWin(char c, int x, int y, int winCount) {
+        if (checkWinHorizontal(c, x, y, winCount)) {
+            return true;
+        } else if (checkWinVertical(c, x, y, winCount)) {
+            return true;
+        } else return checkWinDiagonal(c, x, y, winCount);
+    }
+
+    static boolean checkWinHorizontal(char c, int x, int y, int winCount) {
+        int count = 0;
+
+        for (int j = x; j < fieldSizeX; j++) {
+            if (field[y][j] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        for (int j = x - 1; j >= 0; j--) {
+            if (field[y][j] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+        return count >= winCount;
+    }
+
+    static boolean checkWinVertical(char c, int x, int y, int winCount) {
+        int count = 0;
+
+        for (int j = y; j < fieldSizeY; j++) {
+            if (field[j][x] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        for (int j = y - 1; j >= 0; j--) {
+            if (field[j][x] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        return count >= winCount;
+    }
+
+    static boolean checkWinDiagonal(char c, int x, int y, int winCount) {
+        int count = 0;
+
+        for (int i = y, j = x; i < fieldSizeY && j < fieldSizeX; i++, j++) {
+            if (field[i][j] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        for (int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--) {
+            if (field[i][j] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        if (count >= winCount) return true;
+        count = 0;
+
+        for (int i = y, j = x; i < fieldSizeY && j >= 0; i++, j--) {
+            if (field[i][j] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        for (int i = y - 1, j = x + 1; i >= 0 && j < fieldSizeX; i--, j++) {
+            if (field[i][j] == c) {
+                count++;
+            } else {
+                if (count >= winCount) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        return count >= winCount;
+    }
 
     static boolean checkDraw() {
         for (int x = 0; x < fieldSizeX; x++) {
