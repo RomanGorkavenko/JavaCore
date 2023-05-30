@@ -86,6 +86,46 @@ public class Main {
         return checkWin(CELL_HUMAN, x, y, winCount);
     }
 
+    private static boolean aiTurn() {
+        int x, y;
+
+        for (int i = 0; i < fieldSizeY; i++) {
+            for (int j = 0; j < fieldSizeX; j++) {
+                if (isCellEmpty(j, i)) {
+                    field[i][j] = CELL_HUMAN;
+                    if (checkWin(CELL_HUMAN, j, i, winCount)) {
+                        field[i][j] = CELL_AI;
+                        return checkWin(CELL_AI, j, i, winCount);
+                    } else {
+                        field[i][j] = CELL_EMPTY;
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < fieldSizeY; i++) {
+            for (int j = 0; j < fieldSizeX; j++) {
+                if (isCellEmpty(j, i)) {
+                    field[i][j] = CELL_AI;
+                    if (checkWin(CELL_AI, j, i, 2)) {
+                        field[i][j] = CELL_AI;
+                        return checkWin(CELL_AI, j, i, winCount);
+                    } else {
+                        field[i][j] = CELL_EMPTY;
+                    }
+                }
+            }
+        }
+
+        do {
+            x = random.nextInt(fieldSizeX);
+            y = random.nextInt(fieldSizeY);
+        } while (!isCellEmpty(x, y));
+
+        field[y][x] = CELL_AI;
+        return checkWin(CELL_AI, x, y, winCount);
+    }
+
     private static boolean isCellEmpty(int x, int y) {
         return field[y][x] == CELL_EMPTY;
     }
