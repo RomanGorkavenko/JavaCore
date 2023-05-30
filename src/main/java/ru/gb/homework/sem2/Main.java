@@ -74,6 +74,18 @@ public class Main {
         }
     }
 
+    private static boolean humanTurn() {
+        int y, x;
+
+        do {
+            System.out.printf("Введите координаты хода X (от 1 до %d) и Y (от 1 до %d) через пробел >>> ", fieldSizeX, fieldSizeY);
+            x = SCANNER.nextInt() - 1;
+            y = SCANNER.nextInt() - 1;
+        } while (!isCellValid(x, y) || !isCellEmpty(x, y));
+        field[y][x] = CELL_HUMAN;
+        return checkWin(CELL_HUMAN, x, y, winCount);
+    }
+
     private static boolean isCellEmpty(int x, int y) {
         return field[y][x] == CELL_EMPTY;
     }
