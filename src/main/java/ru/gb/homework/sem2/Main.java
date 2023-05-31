@@ -5,22 +5,65 @@ import java.util.Scanner;
 
 public class Main {
 
+    /**
+     * Количество клеток для победы.
+     */
     private static int winCount;
+
+    /**
+     * Символ игрока.
+     */
     private static final char CELL_HUMAN = 'X';
+
+    /**
+     * Символ компьютера.
+     */
     private static final char CELL_AI = 'O';
+
+    /**
+     * Символ пустой ячейки.
+     */
     private static final char CELL_EMPTY = '•';
 
+    /**
+     * Инициализация сканера.
+     */
     private static final Scanner SCANNER = new Scanner(System.in);
 
+    /**
+     * Массив символов - игровое поле.
+     */
     private static char[][] field;
 
+    /**
+     * Инициализация класса {@link Random}
+     */
     private static final Random random = new Random();
 
+    /**
+     * Размер вложенного массива.
+     */
     private static int fieldSizeX;
+
+    /**
+     * Размер массива.
+     */
     private static int fieldSizeY;
+
+    /**
+     * Количество столбцов в игровом поле.
+     */
     private static int numberOfColumnsXField;
+
+    /**
+     * Количество строк в игровом поле.
+     */
     private static int numberOfRowsYField;
 
+    /**
+     * Метод запуска игры.
+     * @param args массив строк.
+     */
     public static void main(String[] args) {
         initialize();
         printField();
@@ -48,6 +91,15 @@ public class Main {
         }
     }
 
+    /**
+     * Метод инициализации параметров игры и заполнения игрового поля символами пустой ячейки.
+     * @see Main#numberOfColumnsXField
+     * @see Main#numberOfRowsYField
+     * @see Main#field
+     * @see Main#winCount
+     * @see Main#fieldSizeX
+     * @see Main#fieldSizeY
+     */
     private static void initialize() {
         fieldSizeX = 8;
         fieldSizeY = 5;
@@ -74,6 +126,12 @@ public class Main {
         }
     }
 
+    /**
+     * Метод печати игрового поля в консоль.
+     * @see Main#numberOfColumnsXField
+     * @see Main#numberOfRowsYField
+     * @see Main#field
+     */
     private static void printField() {
 
         int y = 0;
@@ -97,6 +155,18 @@ public class Main {
         }
     }
 
+    /**
+     * Метод реализующий ход игрока.
+     * В методе запрашиваются у пользователя координаты,
+     * проверяются на валидность и на символ пустой ячейки.
+     * Обращается к методам:
+     * {@link Main#checkWin(char, int, int, int)},
+     * {@link Main#isCellEmpty(int, int)},
+     * {@link Main#isCellValid(int, int)}.
+     * @see Main#CELL_HUMAN
+     * @see Main#winCount
+     * @return возвращает true или false.
+     */
     private static boolean humanTurn() {
         int y, x;
 
@@ -109,6 +179,22 @@ public class Main {
         return checkWin(CELL_HUMAN, x, y, winCount);
     }
 
+    /**
+     * Метод реализующий ход компьютера.
+     * В методе первым циклом реализуется анализ сделанных игроком ходов
+     * и в случае если игрок может победить, победный ход игрока блокируется.
+     * Вторым циклом анализируются сделанные ходы компьютером
+     * и в случае возможной победы она реализуется.
+     * Если возможность победы или установки символа рядом с уже установленным отсутствует,
+     * символ устанавливается по случайным координатам с проверкой на символ пустой ячейки.
+     * Обращается к методам:
+     * {@link Main#checkWin(char, int, int, int)}, {@link Main#isCellEmpty(int, int)}.
+     * @see Main#CELL_AI
+     * @see Main#CELL_HUMAN
+     * @see Main#CELL_EMPTY
+     * @see Main#winCount
+     * @return возвращает true или false.
+     */
     private static boolean aiTurn() {
         int x, y;
 
@@ -149,14 +235,39 @@ public class Main {
         return checkWin(CELL_AI, x, y, winCount);
     }
 
+    /**
+     * Метод проверки на то, что ячейка по заданным координатам имеет символ пустой ячейки.
+     * @see Main#CELL_EMPTY
+     * @param x координата X.
+     * @param y координата Y.
+     * @return возвращает true или false.
+     */
     private static boolean isCellEmpty(int x, int y) {
         return field[y][x] == CELL_EMPTY;
     }
 
+    /**
+     * Метод проверки на корректность координат введенных пользователем.
+     * @param x координата X.
+     * @param y координата Y.
+     * @return возвращает true или false.
+     */
     private static boolean isCellValid(int x, int y) {
         return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
     }
 
+    /**
+     * Метод проверки на победу по всем направлениям.
+     * Обращается к методам:
+     * {@link Main#checkWinHorizontal(char, int, int, int)},
+     * {@link Main#checkWinVertical(char, int, int, int)},
+     * {@link Main#checkWinDiagonal(char, int, int, int)}.
+     * @param c символ {@link Main#CELL_HUMAN} или {@link Main#CELL_AI}.
+     * @param x координата X.
+     * @param y координата Y.
+     * @param winCount {@link Main#winCount}.
+     * @return возвращает true или false.
+     */
     static boolean checkWin(char c, int x, int y, int winCount) {
         if (checkWinHorizontal(c, x, y, winCount)) {
             return true;
@@ -165,6 +276,18 @@ public class Main {
         } else return checkWinDiagonal(c, x, y, winCount);
     }
 
+    /**
+     * Метод проверки на победу по горизонтали.
+     * Начинает отсчет указанного символа от полученных координат
+     * по горизонтали вправо затем влево
+     * (не считая символ в полученных координатах).
+     * Считает только идущие подряд символы
+     * @param c символ {@link Main#CELL_HUMAN} или {@link Main#CELL_AI}.
+     * @param x координата X.
+     * @param y координата Y.
+     * @param winCount {@link Main#winCount}.
+     * @return возвращает true или false.
+     */
     static boolean checkWinHorizontal(char c, int x, int y, int winCount) {
         int count = 0;
 
@@ -192,6 +315,18 @@ public class Main {
         return count >= winCount;
     }
 
+    /**
+     * Метод проверки на победу по вертикали.
+     * Начинает отсчет указанного символа от полученных координат
+     * по вертикали вниз затем вверх
+     * (не считая символ в полученных координатах).
+     * Считает только идущие подряд символы
+     * @param c символ {@link Main#CELL_HUMAN} или {@link Main#CELL_AI}.
+     * @param x координата X.
+     * @param y координата Y.
+     * @param winCount {@link Main#winCount}.
+     * @return возвращает true или false.
+     */
     static boolean checkWinVertical(char c, int x, int y, int winCount) {
         int count = 0;
 
@@ -220,6 +355,19 @@ public class Main {
         return count >= winCount;
     }
 
+    /**
+     * Метод проверки на победу по диагоналям.
+     * Начинает отсчет указанного символа от полученных координат
+     * по диагонали вверх вправо затем вниз влево
+     * (не считая символ в полученных координатах),
+     * затем повторяет зеркально.
+     * Считает только идущие подряд символы
+     * @param c символ {@link Main#CELL_HUMAN} или {@link Main#CELL_AI}.
+     * @param x координата X.
+     * @param y координата Y.
+     * @param winCount {@link Main#winCount}.
+     * @return возвращает true или false.
+     */
     static boolean checkWinDiagonal(char c, int x, int y, int winCount) {
         int count = 0;
 
@@ -273,6 +421,10 @@ public class Main {
         return count >= winCount;
     }
 
+    /**
+     * Метод проверки на "Ничью".
+     * @return возвращает true или false.
+     */
     static boolean checkDraw() {
         for (int x = 0; x < fieldSizeX; x++) {
             for (int y = 0; y < fieldSizeY; y++)
