@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class WorkerService {
 
     public List<Worker> createWorkersList(int numberOfWorkers) {
-        String[] firstNames = new String[]{"Иван", "Наталья", "Пётр", "Любовь", "Роман", "Инга", "Тимур",
+        String[] firstNames = new String[]{"Иван", "Наталья", "Пётр", "Роман", "Инга", "Тимур",
                 "Анна", "Юрий", "Надежда", "Андрей", "Евгения", "Сергей", "Яна"};
         String[] lastNames = new String[]{"Буртасов", "Кутявин", "Курлаев", "Храмушин", "Брагин",
                 "Ступаков", "Суслов", "Основин", "Волков", "Калинин"};
