@@ -33,6 +33,13 @@ public class Main {
                 {"1", "2", "3", "4"}
         };
 
+        String[][] array4 = new String[][]{
+                {"1", "2", "3", "4"},
+                {"1", "2", "3", "4"},
+                {"1", "2", "3", "4"},
+                {"1", "2", "3", "4"}
+        };
+
         ArrayController arrayController = new ArrayController();
 
         arrayController.sumController(array);
@@ -40,6 +47,8 @@ public class Main {
         arrayController.sumController(array2);
         System.out.println("=".repeat(50));
         arrayController.sumController(array3);
+        System.out.println("=".repeat(50));
+        arrayController.sumController(array4);
 
     }
 }

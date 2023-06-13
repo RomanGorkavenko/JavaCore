@@ -35,7 +35,7 @@ public class ArrayController {
 
         try {
             result = arrayService.sumArrayElements(array);
-            System.out.println(result);
+            System.out.println("Сумма всех элементов массива = " + result);
         } catch (MyArraySizeException exception) {
             System.out.printf("Ошибка размерности массива. " +
                             "Размер массива = %d, размер вложенного массива с индексом %d = %d\n%s\n",
