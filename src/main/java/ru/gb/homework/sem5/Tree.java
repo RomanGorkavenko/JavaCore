@@ -2,8 +2,18 @@ package ru.gb.homework.sem5;
 
 import java.io.File;
 
+/**
+ * Класс отрисовки дерева папок и файлов.
+ */
 public class Tree {
 
+    /**
+     * Метод отрисовки дерева папок и файлов.
+     * @param file каталог для отрисовки дерева.
+     * @param indent символ разделитель тип строка.
+     * @param isLast последний символ, может принимать значение true или false.
+     * @param color цвет отрисовки, может принимать значение true или false.
+     */
     public static void print(File file, String indent, boolean isLast, boolean color) {
         // ├─ └─ │ ─
         System.out.print(indent);

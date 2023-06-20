@@ -3,8 +3,16 @@ package ru.gb.homework.sem5;
 import java.io.*;
 import java.util.Arrays;
 
+/**
+ * Класс с точкой входа в программу.
+ */
 public class Main {
 
+    /**
+     * Точка входа в программу.
+     * @param args массив строк.
+     * @throws IOException пробрасываемое исключение при работе с файлами.
+     */
     public static void main(String[] args) throws IOException {
         Tree.print(
                 new File("./src/main/java/ru/gb/homework/sem4"), "", true, false);
@@ -18,6 +26,12 @@ public class Main {
         System.out.println("Массивы равны? -> " + (Arrays.equals(num, extractedFileThreeBytes()) ? "Да" : "Нет"));
     }
 
+    /**
+     * Метод делает резервную копию файлов в указанной папке.
+     * @param source путь откуда производится резервная копия.
+     * @param dest путь куда производится резервная копия.
+     * @throws IOException пробрасываемое исключение при работе с файлами.
+     */
     private static void backup(String source, String dest) throws IOException {
 
         if (!new File(dest).exists()) {
@@ -40,6 +54,11 @@ public class Main {
         }
     }
 
+    /**
+     * Метод записывает 9 значений из массива целых чисел, тремя байтами в файл.
+     * @param num массив целых чисел.
+     * @throws IOException пробрасываемое исключение при работе с файлами.
+     */
     private static void writeFileThreeBytes(int[] num) throws IOException {
         try(FileOutputStream fos=new FileOutputStream("ThreeBytes.txt"))
         {
@@ -66,6 +85,11 @@ public class Main {
         }
     }
 
+    /**
+     * Метод считывает три байта из файла и записывает их 9ю целыми числами в массив.
+     * @return возвращает массив целых чисел.
+     * @throws IOException пробрасываемое исключение при работе с файлами.
+     */
     private static int[] extractedFileThreeBytes() throws IOException {
         StringBuilder builder = new StringBuilder();
         try(FileInputStream in = new FileInputStream("ThreeBytes.txt")) {
